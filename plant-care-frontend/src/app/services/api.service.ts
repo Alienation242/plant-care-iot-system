@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+// src/app/api.service.ts
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,11 +15,19 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/plants`);
   }
 
-  getSensorData(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/sensor-data`);
+  getNutrientSolution(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/nutrient-solution`);
   }
 
-  sendControlCommand(command: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/control`, { command });
+  getEnvironment(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/environment`);
+  }
+
+  getLogs(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/logs`);
+  }
+
+  sendControlCommand(command: string, plantId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/control`, { command, plantId });
   }
 }

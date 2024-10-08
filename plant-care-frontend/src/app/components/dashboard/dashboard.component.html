@@ -1,1 +1,105 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <h1>Plant Care Dashboard</h1>
+
+  <!-- Plant Status Table -->
+  <section class="plant-status">
+    <h2>Plant Status</h2>
+    <table mat-table [dataSource]="plants" class="mat-elevation-z8">
+      <!-- Plant Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Plant Name</th>
+        <td mat-cell *matCellDef="let plant">{{ plant.name }}</td>
+      </ng-container>
+
+      <!-- Soil Moisture Column -->
+      <ng-container matColumnDef="soilMoisture">
+        <th mat-header-cell *matHeaderCellDef>Soil Moisture (%)</th>
+        <td mat-cell *matCellDef="let plant">{{ plant.soilMoisture }}</td>
+      </ng-container>
+
+      <!-- Last Watered Column -->
+      <ng-container matColumnDef="lastWatered">
+        <th mat-header-cell *matHeaderCellDef>Last Watered</th>
+        <td mat-cell *matCellDef="let plant">
+          {{ plant.lastWatered | date : "short" }}
+        </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let plant">
+          <span
+            [ngClass]="{
+              'ok-status': plant.status === 'OK',
+              'alert-status': plant.status !== 'OK'
+            }"
+          >
+            {{ plant.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="['name', 'soilMoisture', 'lastWatered', 'status']"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: ['name', 'soilMoisture', 'lastWatered', 'status']
+        "
+      ></tr>
+    </table>
+  </section>
+  <!-- Nutrient Solution Panel -->
+  <section class="nutrient-solution">
+    <h2>Nutrient Solution Status</h2>
+    <div class="solution-info">
+      <p>
+        <strong>pH Level:</strong> {{ nutrientSolution?.pH }}
+        <span [ngClass]="{ 'alert-status': !isPHOptimal() }"
+          >({{ isPHOptimal() ? "OK" : "Out of Range" }})</span
+        >
+      </p>
+      <p>
+        <strong>EC Level:</strong> {{ nutrientSolution?.ec }}
+        <span [ngClass]="{ 'alert-status': !isECOptimal() }"
+          >({{ isECOptimal() ? "OK" : "Out of Range" }})</span
+        >
+      </p>
+    </div>
+  </section>
+  <!-- Environment Panel -->
+  <section class="environment">
+    <h2>Environment Conditions</h2>
+    <p><strong>Temperature:</strong> {{ environment?.temperature }}°C</p>
+    <p><strong>Humidity:</strong> {{ environment?.humidity }}%</p>
+  </section>
+  <!-- Control Panel -->
+  <section class="control-panel">
+    <h2>Control Panel</h2>
+    <div *ngFor="let plant of plants">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="startWatering(plant.id)"
+      >
+        Start Watering {{ plant.name }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Activity Log -->
+  <section class="activity-log">
+    <h2>Recent Activity Log</h2>
+    <ul>
+      <li *ngFor="let log of logs">
+        {{ log.timestamp | date : "short" }} - {{ log.action }} for
+        {{ log.plantId ? "Plant " + log.plantId : "Nutrient Solution" }}:
+        {{ log.details }}
+      </li>
+    </ul>
+  </section>
+</div>
