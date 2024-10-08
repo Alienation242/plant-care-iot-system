@@ -15,15 +15,24 @@ export class DashboardComponent implements OnInit {
   plants: any[] = [];
   nutrientSolution: any = {};
   environment: any = {};
+  systemHealth: any = {};
+  alerts: any[] = [];
   logs: any[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.loadPlantData();
-    this.loadNutrientSolutionData();
-    this.loadEnvironmentData();
-    this.loadLogs();
+    this.apiService.getPlants().subscribe((data) => (this.plants = data));
+    this.apiService
+      .getNutrientSolution()
+      .subscribe((data) => (this.nutrientSolution = data));
+    this.apiService
+      .getEnvironment()
+      .subscribe((data) => (this.environment = data));
+    this.apiService
+      .getSystemHealth()
+      .subscribe((data) => (this.systemHealth = data));
+    this.apiService.getAlerts().subscribe((data) => (this.alerts = data));
   }
 
   loadPlantData(): void {
@@ -55,7 +64,7 @@ export class DashboardComponent implements OnInit {
       .sendControlCommand('start_watering', plantId)
       .subscribe((response: any) => {
         console.log(response.message);
-        this.loadLogs(); // Refresh logs after action
+        this.apiService.getLogs().subscribe((data) => (this.logs = data));
       });
   }
 

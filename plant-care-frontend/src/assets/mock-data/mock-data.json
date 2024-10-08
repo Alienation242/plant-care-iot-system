@@ -1,0 +1,63 @@
+{
+  "plantStatus": [
+    {
+      "id": 1,
+      "name": "Tomato",
+      "soilMoisture": 45,
+      "lastWatered": "2024-10-10T14:00:00Z",
+      "nutrientLevel": "Normal",
+      "status": "OK"
+    },
+    {
+      "id": 2,
+      "name": "Basil",
+      "soilMoisture": 30,
+      "lastWatered": "2024-10-10T12:00:00Z",
+      "nutrientLevel": "Low",
+      "status": "Needs Water"
+    }
+  ],
+  "nutrientStatus": {
+    "pH": 6.5,
+    "ec": 1.8,
+    "status": "OK"
+  },
+  "environment": {
+    "temperature": 24.5,
+    "humidity": 60,
+    "rainProbability": 30,
+    "windSpeed": 5
+  },
+  "systemHealth": {
+    "batteryLevel": 85,
+    "pumpStatus": "Operational",
+    "lastMaintenance": "2024-10-09T10:00:00Z",
+    "status": "Good"
+  },
+  "alerts": [
+    {
+      "id": 1,
+      "message": "Low soil moisture in Basil plant.",
+      "severity": "medium"
+    },
+    {
+      "id": 2,
+      "message": "High rain probability forecasted.",
+      "severity": "low"
+    }
+  ],
+  "logs": [
+    {
+      "timestamp": "2024-10-10T14:00:00Z",
+      "action": "Watered",
+      "plantId": 1,
+      "details": "Watering cycle completed"
+    },
+    {
+      "timestamp": "2024-10-10T12:00:00Z",
+      "action": "Fertilized",
+      "plantId": 2,
+      "details": "Fertilizer B added"
+    }
+  ]
+}
