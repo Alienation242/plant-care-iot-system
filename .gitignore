@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+*.log
+
+# Angular
+plant-care-frontend/node_modules/
+dist/
+plant-care-frontend/.angular/cache/
+plant-care-frontend/.angular/analytics.json
+
+# Environment and Config Files
+*.env
