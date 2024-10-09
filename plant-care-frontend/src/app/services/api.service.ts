@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { MockData, PlantStatus } from './mock-data.interface';
+import { MockDataService } from './mock-data-generator.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,10 @@ export class ApiService {
   private mockDataUrl = 'assets/mock-data/mock-data.json';
   private mockDataCache$ = new BehaviorSubject<MockData | null>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private mockDataService: MockDataService
+  ) {
     this.loadMockData();
   }
 
@@ -21,9 +25,9 @@ export class ApiService {
       .pipe(tap((data) => this.mockDataCache$.next(data)))
       .subscribe();
   }
-
-  getPlants(): Observable<PlantStatus[]> {
-    return this.mockDataCache$.pipe(map((data) => data?.plantStatus || []));
+  getPlants(): Observable<any[]> {
+    const mockPlants = this.mockDataService.generateMockPlantData();
+    return of(mockPlants);
   }
 
   updatePlantName(

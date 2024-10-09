@@ -21,10 +21,7 @@ export class DashboardComponent implements OnInit {
 
   loadPlants() {
     this.apiService.getPlants().subscribe((data) => {
-      this.plants = data.map((plant) => ({
-        ...plant,
-        image: 'assets/images/default-plant.png',
-      }));
+      this.plants = data;
     });
   }
 

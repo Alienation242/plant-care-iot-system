@@ -33,16 +33,32 @@ export class PlantCardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    const labels = this.plant.last24Hours.map((data: any) => data.time);
+    const soilMoistureData = this.plant.last24Hours.map(
+      (data: any) => data.soilMoisture
+    );
+    const temperatureData = this.plant.last24Hours.map(
+      (data: any) => data.temperature
+    );
+
     this.chart = new Chart(`chart-${this.plant.id}`, {
       type: 'line',
       data: {
-        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+        labels: labels,
         datasets: [
           {
             label: 'Soil Moisture (%)',
-            data: this.chartData,
+            data: soilMoistureData,
             borderColor: '#3e95cd',
             backgroundColor: 'rgba(62, 149, 205, 0.2)',
+            fill: true,
+            tension: 0.4,
+          },
+          {
+            label: 'Temperature (°C)',
+            data: temperatureData,
+            borderColor: '#f06292',
+            backgroundColor: 'rgba(240, 98, 146, 0.2)',
             fill: true,
             tension: 0.4,
           },
@@ -53,7 +69,7 @@ export class PlantCardComponent implements OnInit, AfterViewInit {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: false,
+            display: true,
           },
         },
         scales: {
