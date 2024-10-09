@@ -1,4 +1,3 @@
-// src/app/app.component.ts
 import { Component } from '@angular/core';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
@@ -6,6 +5,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
   selector: 'app-root',
   template: '<app-dashboard></app-dashboard>',
   standalone: true,
-  imports: [DashboardComponent], // Import DashboardComponent
+  imports: [DashboardComponent],
 })
 export class AppComponent {}

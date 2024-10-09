@@ -1,0 +1,24 @@
+<div class="plant-card">
+  <div class="plant-header">
+    <img [src]="plant.image" alt="{{ plant.name }}" class="plant-icon" />
+    <div>
+      <h3 *ngIf="!editingName">{{ plant.name }}</h3>
+      <input
+        *ngIf="editingName"
+        [(ngModel)]="updatedName"
+        (blur)="saveName()"
+        (keyup.enter)="saveName()"
+      />
+      <button (click)="startEditing()" *ngIf="!editingName">Edit</button>
+    </div>
+  </div>
+
+  <div class="sensor-info">
+    <p><strong>Soil Moisture:</strong> {{ plant.soilMoisture }}%</p>
+    <p><strong>Temperature:</strong> {{ plant.temperature }}°C</p>
+    <p><strong>pH Level:</strong> {{ plant.ph }}</p>
+    <p><strong>EC Level:</strong> {{ plant.ec }}</p>
+  </div>
+
+  <canvas id="chart-{{ plant.id }}" width="100%" height="50px"></canvas>
+</div>

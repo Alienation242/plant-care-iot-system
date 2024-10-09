@@ -1,0 +1,25 @@
+.plant-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+
+  .plant-header {
+    display: flex;
+    align-items: center;
+
+    .plant-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 16px;
+    }
+  }
+
+  .sensor-info {
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+}
