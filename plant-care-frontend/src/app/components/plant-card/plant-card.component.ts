@@ -74,16 +74,11 @@ export class PlantCardComponent implements OnInit, AfterViewInit {
         },
         options: {
           responsive: true,
-          maintainAspectRatio: true, // or false if you want manual control
-          aspectRatio: 2, // Adjust for a better width-to-height ratio
+          maintainAspectRatio: true,
+          aspectRatio: 2,
           plugins: {
             legend: {
-              labels: {
-                font: {
-                  size: 10,
-                },
-                padding: 15, // Increases spacing around legend items
-              },
+              display: false,
             },
           },
           scales: {
@@ -94,9 +89,9 @@ export class PlantCardComponent implements OnInit, AfterViewInit {
               ticks: {
                 color: '#555555',
                 font: {
-                  size: 9, // Smaller font for x-axis
+                  size: 9,
                 },
-                maxRotation: 45, // Reduces clutter if labels overlap
+                maxRotation: 45,
                 autoSkip: true,
                 padding: 10,
               },
@@ -111,13 +106,27 @@ export class PlantCardComponent implements OnInit, AfterViewInit {
                 font: {
                   size: 9,
                 },
-                padding: 10, // More space around y-axis labels
+                padding: 10,
               },
             },
           },
         },
       });
     }
+  }
+
+  getPlantImageUrl() {
+    return `assets/images/${this.plant?.name.toLowerCase()}.png`;
+  }
+
+  toggleDatasetVisibility(datasetKey: string) {
+    if (!this.chart) return;
+
+    const datasetIndex = datasetKey === 'soilMoisture' ? 0 : 1; // Assume 0 for soil moisture, 1 for temperature
+    const dataset = this.chart.data.datasets[datasetIndex];
+    dataset.hidden = !dataset.hidden;
+
+    this.chart.update();
   }
 
   startEditing() {

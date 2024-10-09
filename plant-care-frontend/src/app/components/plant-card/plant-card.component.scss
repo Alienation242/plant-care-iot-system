@@ -78,6 +78,32 @@
     }
   }
 
+  .sensor-info .clickable {
+    cursor: pointer;
+    color: #3e95cd;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ::ng-deep .sensor-info .soil-moisture-color {
+    color: #3e95cd !important; // Blue color matching soil moisture line
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ::ng-deep .sensor-info .temperature-color {
+    color: #e67e22 !important; // Orange color matching temperature line
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   canvas {
     margin-top: 10px;
     height: 180px !important;

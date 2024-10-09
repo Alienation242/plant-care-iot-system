@@ -1,7 +1,12 @@
 <div class="plant-card">
   <div class="plant-header">
-    <h3>{{ plant!.name }}</h3>
-    <img [src]="plant?.image" alt="{{ plant?.name }}" class="plant-icon" />
+    <h3>{{ plant?.name }}</h3>
+    <img
+      ngOptimizedImage
+      [src]="getPlantImageUrl()"
+      alt="{{ plant?.name }}"
+      class="plant-icon"
+    />
   </div>
 
   <button (click)="startEditing()" *ngIf="!editingName" class="edit-button">
@@ -16,8 +21,24 @@
   />
 
   <div class="sensor-info">
-    <p><strong>Soil Moisture:</strong> {{ plant?.soilMoisture }}%</p>
-    <p><strong>Temperature:</strong> {{ plant?.temperature }}°C</p>
+    <p>
+      <strong
+        (click)="toggleDatasetVisibility('soilMoisture')"
+        [class.soil-moisture-color]="true"
+      >
+        Soil Moisture:
+      </strong>
+      {{ plant?.soilMoisture }}%
+    </p>
+    <p>
+      <strong
+        (click)="toggleDatasetVisibility('temperature')"
+        [class.temperature-color]="true"
+      >
+        Temperature:
+      </strong>
+      {{ plant?.temperature }}°C
+    </p>
   </div>
 
   <canvas id="chart-{{ plant?.id }}" width="100%" height="80px"></canvas>
