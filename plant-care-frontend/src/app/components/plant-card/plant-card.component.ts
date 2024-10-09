@@ -42,20 +42,37 @@ export class PlantCardComponent implements OnInit, AfterViewInit {
             label: 'Soil Moisture (%)',
             data: this.chartData,
             borderColor: '#3e95cd',
-            fill: false,
+            backgroundColor: 'rgba(62, 149, 205, 0.2)',
+            fill: true,
+            tension: 0.4,
           },
         ],
       },
       options: {
-        responsive: false, // Disable responsiveness
-        maintainAspectRatio: false, // Prevent aspect ratio lock
-        scales: {
-          x: { display: true },
-          y: { display: true },
-        },
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
+          },
+        },
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: '#555555',
+            },
+          },
+          y: {
+            beginAtZero: true,
+            grid: {
+              color: '#e0e0e0',
+            },
+            ticks: {
+              color: '#555555',
+            },
           },
         },
       },

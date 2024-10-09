@@ -6,7 +6,9 @@
       "soilMoisture": 45,
       "lastWatered": "2024-10-10T14:00:00Z",
       "nutrientLevel": "Normal",
-      "status": "OK"
+      "status": "OK",
+      "pH": 6.5,
+      "ec": 1.8
     },
     {
       "id": 2,
@@ -14,7 +16,39 @@
       "soilMoisture": 30,
       "lastWatered": "2024-10-10T12:00:00Z",
       "nutrientLevel": "Low",
-      "status": "Needs Water"
+      "status": "Needs Water",
+      "pH": 6.3,
+      "ec": 1.5
+    },
+    {
+      "id": 3,
+      "name": "Cucumber",
+      "soilMoisture": 50,
+      "lastWatered": "2024-10-09T10:30:00Z",
+      "nutrientLevel": "High",
+      "status": "OK",
+      "pH": 6.7,
+      "ec": 2.0
+    },
+    {
+      "id": 4,
+      "name": "Pepper",
+      "soilMoisture": 35,
+      "lastWatered": "2024-10-10T09:00:00Z",
+      "nutrientLevel": "Normal",
+      "status": "OK",
+      "pH": 6.4,
+      "ec": 1.7
+    },
+    {
+      "id": 5,
+      "name": "Lettuce",
+      "soilMoisture": 40,
+      "lastWatered": "2024-10-10T08:00:00Z",
+      "nutrientLevel": "Low",
+      "status": "Needs Water",
+      "pH": 6.2,
+      "ec": 1.6
     }
   ],
   "nutrientStatus": {

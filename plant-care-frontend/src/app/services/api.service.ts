@@ -1,24 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MockData } from './mock-data.interface';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { MockData, PlantStatus } from './mock-data.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private mockDataUrl = 'assets/mock-data/mock-data.json';
+  private mockDataCache$ = new BehaviorSubject<MockData | null>(null);
 
-  constructor(private http: HttpClient) {}
-
-  getPlants(): Observable<any[]> {
-    return this.http
-      .get<MockData>(this.mockDataUrl)
-      .pipe(map((data) => data.plantStatus));
+  constructor(private http: HttpClient) {
+    this.loadMockData();
   }
 
-  updatePlantName(plantId: number, name: string): Observable<any> {
-    return this.http.put(`${this.mockDataUrl}/plants/${plantId}`, { name });
+  private loadMockData() {
+    this.http
+      .get<MockData>(this.mockDataUrl)
+      .pipe(tap((data) => this.mockDataCache$.next(data)))
+      .subscribe();
+  }
+
+  getPlants(): Observable<PlantStatus[]> {
+    return this.mockDataCache$.pipe(map((data) => data?.plantStatus || []));
+  }
+
+  updatePlantName(
+    plantId: number,
+    name: string
+  ): Observable<PlantStatus | undefined> {
+    return new Observable((observer) => {
+      const plant = this.getMockPlantById(plantId);
+      if (plant) {
+        plant.name = name;
+        observer.next(plant);
+        observer.complete();
+      } else {
+        observer.error('Plant not found');
+      }
+    });
+  }
+
+  private getMockPlantById(id: number): PlantStatus | undefined {
+    const mockData = this.mockDataCache$.getValue();
+    return mockData?.plantStatus.find((plant) => plant.id === id);
   }
 }
